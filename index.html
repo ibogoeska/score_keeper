@@ -17,7 +17,7 @@
         <div class="col-sm-12 col-md-8 col-lg-6 m-auto">
           <div class="card mt-3">
             <img
-              src="./pingPong.jpg  "
+              src="images/pingPong.jpg"
               class="card-img-top img-fluid"
               alt="Ping pong racket and ball"
             />
@@ -30,7 +30,10 @@
                 <span id="p1ScoreDisplay">0</span> to
                 <span id="p2ScoreDisplay">0</span>
               </h1>
-              <p>Use the button below to keep score</p>
+              <p class="mb-0">Use the button below to keep score</p>
+              <p class="fw-light">
+                * note: assuming you are playing the two-point lead *
+              </p>
               <div class="selectPlayingTo mb-3">
                 <label for="playTo" class="fw-bold">Playing To</label>
                 <select name="playTo" id="playTo" class="rounded-pill px-2">
@@ -61,6 +64,9 @@
                 <button id="reset" type="button" class="btn btn-danger col-4">
                   Reset
                 </button>
+              </div>
+              <div class="row">
+                <div class="col text-center m-2 winner-announcement"></div>
               </div>
             </div>
           </div>

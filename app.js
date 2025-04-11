@@ -1,41 +1,57 @@
-const p1Button = document.querySelector("#p1Button");
-const p2Button = document.querySelector("#p2Button");
-const resetBtn = document.querySelector("#reset");
-const p1ScoreDisplay = document.querySelector("#p1ScoreDisplay");
-const p2ScoreDisplay = document.querySelector("#p2ScoreDisplay");
-const winningScoreSelect = document.querySelector("#playTo");
+const player1 = {
+  number: 1,
+  score: 0,
+  button: document.querySelector("#p1Button"),
+  display: document.querySelector("#p1ScoreDisplay"),
+};
+const player2 = {
+  number: 2,
+  score: 0,
+  button: document.querySelector("#p2Button"),
+  display: document.querySelector("#p2ScoreDisplay"),
+};
 
-let p1Score = 0;
-let p2Score = 0;
+const resetBtn = document.querySelector("#reset");
+const winningScoreSelect = document.querySelector("#playTo");
+const announceWinner = document.querySelector(".winner-announcement");
 let winningScore = 5;
 let isGameOver = false;
 
-p1Button.addEventListener("click", function () {
+function updateScores(player, opponent) {
   if (!isGameOver) {
-    p1Score += 1;
-    if (p1Score === winningScore) {
+    player.score += 1;
+    if (player.score >= winningScore && player.score - opponent.score >= 2) {
       isGameOver = true;
-      p1ScoreDisplay.classList.add("text-success");
-      p2ScoreDisplay.classList.add("text-danger");
-      p1Button.disabled = true;
-      p2Button.disabled = true;
+      player.display.classList.add("text-success");
+      opponent.display.classList.add("text-danger");
+      player.button.disabled = true;
+      opponent.button.disabled = true;
+      announceWinner.innerHTML = `Congrats! The player ${player.number} has won the game!`;
+      announceWinner.style.color = "green";
+      announceWinner.style.fontSize = "1.2em";
+    } else if (
+      player.score === winningScore &&
+      player.score - opponent.score < 2
+    ) {
+      announceWinner.innerHTML =
+        "Remember you are playing by two-point lead rule. Don't stop until you are +2 points ahead!";
+      announceWinner.style.color = "blue";
+      announceWinner.style.fontSize = "0.8em";
     }
-    p1ScoreDisplay.textContent = p1Score;
+
+    player.display.textContent = player.score;
   }
+}
+
+player1.button.addEventListener("click", function () {
+  updateScores(player1, player2);
+  const winner = prompt(
+    `Player ${player.number} won the game! \n Write your name down to be part of the ScoreBoard`
+  );
 });
 
-p2Button.addEventListener("click", function () {
-  if (!isGameOver) {
-    p2Score += 1;
-    if (p2Score === winningScore) {
-      isGameOver = true;
-      p2ScoreDisplay.classList.add("text-success");
-      p1ScoreDisplay.classList.add("text-danger");
-      p1Button.disabled = true;
-      p2Button.disabled = true;
-    }
-    p2ScoreDisplay.textContent = p2Score;
-  }
+player2.button.addEventListener("click", function () {
+  updateScores(player2, player1);
 });
 
 winningScoreSelect.addEventListener("change", function (e) {
@@ -47,12 +63,13 @@ resetBtn.addEventListener("click", reset);
 
 function reset() {
   isGameOver = false;
-  p1Score = 0;
-  p2Score = 0;
-  p1ScoreDisplay.textContent = 0;
-  p2ScoreDisplay.textContent = 0;
-  p1ScoreDisplay.classList.remove("text-success", "text-danger");
-  p2ScoreDisplay.classList.remove("text-success", "text-danger");
-  p1Button.disabled = false;
-  p2Button.disabled = false;
+  for (let p of [player1, player2]) {
+    p.score = 0;
+    p.display.textContent = 0;
+    p.display.classList.remove("text-success", "text-danger");
+    p.button.disabled = false;
+  }
+  announceWinner.innerHTML = "";
 }
+
+function makeAScoreboard() {}
