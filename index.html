@@ -26,6 +26,32 @@
                 Ping Pong Score Keeper
               </h5>
               <p class="card-text"></p>
+              <div class="mb-3">
+                <label for="playerOneName">Player One Name:</label>
+                <input
+                  type="text"
+                  name=""
+                  id="playerOneName"
+                  class="form-control"
+                  placeholder="Player One"
+                />
+              </div>
+
+              <div class="mb-5">
+                <label for="playerTwoName">Player Two Name:</label>
+                <input
+                  type="text"
+                  name=""
+                  id="playerTwoName"
+                  class="form-control"
+                  placeholder="Player Two"
+                />
+              </div>
+
+              <h2 class="mb-5 text-center">
+                <span id="displayPlayerOne">Player One</span> vs
+                <span id="displayPlayerTwo">Player Two</span>
+              </h2>
               <h1>
                 <span id="p1ScoreDisplay">0</span> to
                 <span id="p2ScoreDisplay">0</span>
@@ -67,6 +93,16 @@
               </div>
               <div class="row">
                 <div class="col text-center m-2 winner-announcement"></div>
+              </div>
+              <div class="row text-center mt-3">
+                <h4>Score History</h4>
+                <ul id="scoreHistory" class="list-group"></ul>
+                <button
+                  id="clearHistory"
+                  class="btn btn-outline-secondary mt-2"
+                >
+                  Clear History
+                </button>
               </div>
             </div>
           </div>

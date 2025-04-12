@@ -1,3 +1,26 @@
+const resetBtn = document.querySelector("#reset");
+const winningScoreSelect = document.querySelector("#playTo");
+const announceWinner = document.querySelector(".winner-announcement");
+const scoreHistory = document.querySelector("#scoreHistory");
+
+const playerOneInput = document.querySelector("#playerOneName");
+const playerTwoInput = document.querySelector("#playerTwoName");
+const displayPlayerOne = document.querySelector("#displayPlayerOne");
+const displayPlayerTwo = document.querySelector("#displayPlayerTwo");
+
+playerOneInput.addEventListener("input", () => {
+  displayPlayerOne.textContent = playerOneInput.value || "Player One";
+  localStorage.setItem("playerOneName", playerOneInput.value);
+});
+
+playerTwoInput.addEventListener("input", () => {
+  displayPlayerTwo.textContent = playerTwoInput.value || "Player Two";
+  localStorage.setItem("playerTwoName", playerTwoInput.value);
+});
+
+let winningScore = 5;
+let isGameOver = false;
+
 const player1 = {
   number: 1,
   score: 0,
@@ -11,12 +34,6 @@ const player2 = {
   display: document.querySelector("#p2ScoreDisplay"),
 };
 
-const resetBtn = document.querySelector("#reset");
-const winningScoreSelect = document.querySelector("#playTo");
-const announceWinner = document.querySelector(".winner-announcement");
-let winningScore = 5;
-let isGameOver = false;
-
 function updateScores(player, opponent) {
   if (!isGameOver) {
     player.score += 1;
@@ -26,9 +43,11 @@ function updateScores(player, opponent) {
       opponent.display.classList.add("text-danger");
       player.button.disabled = true;
       opponent.button.disabled = true;
-      announceWinner.innerHTML = `Congrats! The player ${player.number} has won the game!`;
+      announceWinner.innerHTML = `Congrats! ${playerOneInput.value} has won the game!`;
       announceWinner.style.color = "green";
       announceWinner.style.fontSize = "1.2em";
+
+      updateScoreHistory(player1, player2);
     } else if (
       player.score === winningScore &&
       player.score - opponent.score < 2
@@ -45,9 +64,6 @@ function updateScores(player, opponent) {
 
 player1.button.addEventListener("click", function () {
   updateScores(player1, player2);
-  const winner = prompt(
-    `Player ${player.number} won the game! \n Write your name down to be part of the ScoreBoard`
-  );
 });
 
 player2.button.addEventListener("click", function () {
@@ -61,7 +77,7 @@ winningScoreSelect.addEventListener("change", function (e) {
 
 resetBtn.addEventListener("click", reset);
 
-function reset() {
+function reset(clearDisplay = true) {
   isGameOver = false;
   for (let p of [player1, player2]) {
     p.score = 0;
@@ -72,4 +88,13 @@ function reset() {
   announceWinner.innerHTML = "";
 }
 
-function makeAScoreboard() {}
+function updateScoreHistory(p1, p2) {
+  const playerOneName = playerOneInput.value;
+  const playerTwoName = playerTwoInput.value;
+
+  const listItem = document.createElement("li");
+  listItem.classList.add("list-group-item");
+  listItem.innerHTML = `${playerOneName} <b>${p1.score}</b> - <b>${p2.score}</b> ${playerTwoName}`;
+
+  scoreHistory.appendChild(listItem);
+}
