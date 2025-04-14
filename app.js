@@ -2,6 +2,7 @@ const resetBtn = document.querySelector("#reset");
 const winningScoreSelect = document.querySelector("#playTo");
 const announceWinner = document.querySelector(".winner-announcement");
 const scoreHistory = document.querySelector("#scoreHistory");
+const clearHistoryBtn = document.querySelector("#clearHistory");
 
 const playerOneInput = document.querySelector("#playerOneName");
 const playerTwoInput = document.querySelector("#playerTwoName");
@@ -10,12 +11,10 @@ const displayPlayerTwo = document.querySelector("#displayPlayerTwo");
 
 playerOneInput.addEventListener("input", () => {
   displayPlayerOne.textContent = playerOneInput.value || "Player One";
-  localStorage.setItem("playerOneName", playerOneInput.value);
 });
 
 playerTwoInput.addEventListener("input", () => {
   displayPlayerTwo.textContent = playerTwoInput.value || "Player Two";
-  localStorage.setItem("playerTwoName", playerTwoInput.value);
 });
 
 let winningScore = 5;
@@ -77,6 +76,8 @@ winningScoreSelect.addEventListener("change", function (e) {
 
 resetBtn.addEventListener("click", reset);
 
+clearHistoryBtn.addEventListener("click", clearScoreHistory);
+
 function reset(clearDisplay = true) {
   isGameOver = false;
   for (let p of [player1, player2]) {
@@ -97,4 +98,8 @@ function updateScoreHistory(p1, p2) {
   listItem.innerHTML = `${playerOneName} <b>${p1.score}</b> - <b>${p2.score}</b> ${playerTwoName}`;
 
   scoreHistory.appendChild(listItem);
+}
+
+function clearScoreHistory() {
+  scoreHistory.innerHTML = "";
 }
