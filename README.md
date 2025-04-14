@@ -26,6 +26,16 @@ and reset the game at any time.
 - Click the +1 Player One or +1 Player Two buttons to increment scores
 - When a player reaches the target score and leads by at least two points, the game ends.
 - Click the reset button to start a new game.
+- The names of the players are written done in the score history part and stay there until refreshing the page.
+
+## Potential Upgrades 
+Here are a few ways this project can be improved and extended: 
+- Dark Mode Toggle
+- Sound effects: Play a sound when a player scores or wins
+- Timer: Add a countdown or stopwatch for timed matches
+- Multiple game modes: Include modes like best of-3, best-of-5 etc.
+
+  Looking forward to expend my knowlegde in JS and to soon work on some upgrade of it. 
 
 ## Contributing
 
